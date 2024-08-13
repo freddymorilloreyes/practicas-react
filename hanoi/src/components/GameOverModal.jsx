@@ -1,8 +1,8 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+import * as React from 'react'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import Modal from '@mui/material/Modal'
 
 const style = {
   position: 'absolute',
@@ -14,11 +14,11 @@ const style = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
-};
+}
 
 export function GameOverModal({open, movements}) {
-//   const handleOpen = () => setOpen(true);
-//   const handleClose = () => setOpen(false);
+//   const handleOpen = () => setOpen(true)
+//   const handleClose = () => setOpen(false)
 
   return (
     <div>
@@ -38,5 +38,5 @@ export function GameOverModal({open, movements}) {
         </Box>
       </Modal>
     </div>
-  );
+  )
 }

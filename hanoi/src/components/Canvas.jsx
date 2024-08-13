@@ -1,11 +1,11 @@
-import { Post } from "./Post";
-import { GameOverModal } from "./GameOverModal";
-import { useGame } from "../hooks/useGame";
-import { useGameOver } from "../hooks/useGameOver";
+import { Post } from "./Post"
+import { GameOverModal } from "./GameOverModal"
+import { useGame } from "../hooks/useGame"
+import { useGameOver } from "../hooks/useGameOver"
 
 export function Canvas() {
-  const { postItems, handleMove, movements } = useGame();
-  const { gameOver } = useGameOver({ postItems });
+  const { postItems, handleMove, movements, discTaken } = useGame()
+  const { gameOver } = useGameOver({ postItems })
 
   return (
     <>
@@ -24,14 +24,15 @@ export function Canvas() {
             </h1>
           </li>
         </ul>
-        <Post discItems={postItems.one} handleMove={handleMove} post={"one"} />
-        <Post discItems={postItems.two} handleMove={handleMove} post={"two"} />
+        <Post discItems={postItems.one} handleMove={handleMove} post={"one"} discTaken={discTaken} />
+        <Post discItems={postItems.two} handleMove={handleMove} post={"two"} discTaken={discTaken} />
         <Post
           discItems={postItems.three}
           handleMove={handleMove}
           post={"three"}
+          discTaken={discTaken}
         />
       </div>
     </>
-  );
+  )
 }

@@ -1,60 +1,58 @@
-import { useState } from "react";
-import { toast } from "react-toastify";
-import { useMove } from "./useMove";
+import { useState } from "react"
+import { toast } from "react-toastify"
+import { useMove } from "./useMove"
+    import { useTakeDisc } from "./useTakeDisc"
 
 export function useGame() {
-  const [postItems, setPostItems] = useState({
+    const [postItems, setPostItems] = useState({
     one: [
       // 7,6,5,4,
       3, 2, 1,
     ],
-    two: [],
+    two: [], 
     three: [],
-  });
+  })
 
-  const [discTaken, setDiscTaken] = useState({
-    fromPost: null,
-    number: null,
-  });
-
-  const { movements, addMovement } = useMove();
+  const { movements, addMovement } = useMove()
+        const { discTaken, dropDisc, grabDisc } = useTakeDisc()
   const handleMove = (post) => {
-    const currentPostItems = postItems[post];
+    const currentPostItems = postItems[post]
 
     if (discTaken.number) {
-      handlePlace({ currentPostItems, post });
+        handlePlace({ currentPostItems, post })
     } else {
-      handleTakin({ currentPostItems, post });
+      handleTakin({ currentPostItems, post })
     }
-  };
+  }
 
   const handlePlace = ({ currentPostItems, post }) => {
-    const newItems = { ...postItems };
+    const newItems = { ...postItems }
     //placing
     if (
       currentPostItems.length > 0 &&
       currentPostItems[currentPostItems.length - 1] < discTaken.number
     ) {
-      toast.error("invalid movement", { theme: "dark" });
-      return;
+      toast.error("invalid movement", { theme: "dark" })
+      return
     }
 
-    newItems[post].push(discTaken.number);
-    setDiscTaken({ fromPost: null, number: null });
-    setPostItems(newItems);
-    addMovement();
-  };
+    newItems[discTaken.fromPost].pop()
+    newItems[post].push(discTaken.number)
+    addMovement(discTaken.fromPost, post)
+    dropDisc()
+    setPostItems(newItems)
+  }
 
   const handleTakin = ({ currentPostItems, post }) => {
-    const newItems = { ...postItems };
+    const newItems = { ...postItems }
     if (currentPostItems.lenght === 0) {
-      return;
+      return
     }
     //taking
-    const numberTaken = newItems[post].pop();
-    setDiscTaken({ fromPost: post, number: numberTaken });
-    setPostItems(newItems);
-  };
+    const numberTaken = currentPostItems[currentPostItems.length - 1]
+    grabDisc(post, numberTaken)
+    setPostItems(newItems)
+  }
 
-  return { postItems, handleMove, movements };
+  return { postItems, handleMove, movements, discTaken }
 }

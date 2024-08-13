@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState } from "react"
 
 export function useMove() {
-  const [movements, setMovements] = useState(0);
+  const [movements, setMovements] = useState(0)
 
-  const addMovement = () => {
-    setMovements(movements + 1);
-  };
+  const addMovement = (fromPost, toPost) => {
+    if (fromPost != toPost) {
+      setMovements(movements + 1)
+    }
+  }
 
-  return { movements, addMovement };
+  return { movements, addMovement }
 }
